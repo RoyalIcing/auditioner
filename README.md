@@ -7,8 +7,9 @@ Test whether your components can fulfill a role.
 - button
 - link
 - checkbox
-- radio
+- radiogroup / radio
 - tab
+- summary
 
 ## Core API
 
@@ -21,6 +22,26 @@ it("is a button", () => {
 });
 ```
 
+```ts
+import { listActs } from "@auditioner/core";
+
+it("is a button", () => {
+  const result = render(<Component />);
+  expect(listActs(result)).toContain("button");
+});
+```
+
+```ts
+import "@auditioner/jest";
+
+it("has description", () => {
+  const result = render(<Component />);
+  expect(result.getByRole("button", { name: "Save" })).toHaveDescription(
+    "Remember to save often"
+  );
+});
+```
+
 ### Tablist
 
 ```ts
@@ -30,7 +51,7 @@ import {
   getAllTabLabels,
   getTabpanel,
   getActiveTabpanel,
-  isValidTablist
+  isValidTablist,
 } from "@auditioner/queries";
 import user from "@testing-library/user-event";
 
@@ -80,13 +101,13 @@ it("is a tablist", () => {
 
   expect(result).toMatchRole(
     tablist({
-      labels: ["First", "Second", "Third"]
+      labels: ["First", "Second", "Third"],
     })
   );
 
   expect(result).toActAs(
     tablist({
-      labels: ["First", "Second", "Third"]
+      labels: ["First", "Second", "Third"],
     })
   );
 
