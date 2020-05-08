@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [TSDX Bootstrap](#tsdx-bootstrap)
+  - [Local Development](#local-development)
+    - [`npm start` or `yarn start`](#npm-start-or-yarn-start)
+    - [`npm run build` or `yarn build`](#npm-run-build-or-yarn-build)
+    - [`npm test` or `yarn test`](#npm-test-or-yarn-test)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # TSDX Bootstrap
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).

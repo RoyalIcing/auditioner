@@ -16,3 +16,12 @@ test:
 
 build:
 	cd packages/core && npm run build
+
+lint:
+	cd packages/core && npm run lint
+
+lint_fix:
+	cd packages/core && npm run lint -- --fix
+
+toc:
+	npx doctoc README.md --maxlevel 3 --notitle

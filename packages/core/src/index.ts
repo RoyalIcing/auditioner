@@ -1,3 +1,6 @@
+import * as rolesQueries from './roles/all';
+export { rolesQueries };
+
 export const sum = (a: number, b: number) => {
   if ('development' === process.env.NODE_ENV) {
     console.log('boop');

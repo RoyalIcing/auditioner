@@ -1,8 +1,24 @@
-# auditioner
+<div align="center">
+<h1>auditioner</h1>
 
-Test whether your components can fulfill a role.
+<p style="font-size: 400%; line-height: 1; margin: 0">🎬</p>
 
-## Roles supported
+<p>Test if your component fits a role.</p>
+
+</div>
+
+---
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Roles](#roles)
+  - [Tabs](#tabs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Roles
 
 - button
 - link
@@ -11,106 +27,45 @@ Test whether your components can fulfill a role.
 - tab
 - summary
 
-## Core API
+### Tabs
+
+#### Examples
 
 ```ts
-import { actsLike } from "@auditioner/core";
+describe("your tabs component", () => {
+  const subject = lazy(() => render(<Tabs />));
+  const tabs = lazy(() => getTabs(subject().container));
 
-it("is a button", () => {
-  const result = render(<Component />);
-  expect(actsLike("button", result)).toBe(true);
-});
-```
-
-```ts
-import { listActs } from "@auditioner/core";
-
-it("is a button", () => {
-  const result = render(<Component />);
-  expect(listActs(result)).toContain("button");
-});
-```
-
-```ts
-import "@auditioner/jest";
-
-it("has description", () => {
-  const result = render(<Component />);
-  expect(result.getByRole("button", { name: "Save" })).toHaveDescription(
-    "Remember to save often"
-  );
-});
-```
-
-### Tablist
-
-```ts
-import {
-  isTablist,
-  getTab,
-  getAllTabLabels,
-  getTabpanel,
-  getActiveTabpanel,
-  isValidTablist,
-} from "@auditioner/queries";
-import user from "@testing-library/user-event";
-
-let result;
-beforeEach(() => {
-  result = render(<Component />);
-});
-
-it("is a tablist", () => {
-  expect(isTablist(result)).toBe(true);
-});
-
-it("has 3 tabs", () => {
-  expect(getAllTabLabels(result)).toEqual(["First", "Second", "Third"]);
-});
-
-describe("when clicking on First tab", () => {
-  beforeEach(() => {
-    user.click(getTab(result, "First"));
+  // Check tab interactions in one go
+  it("fulfills tab roles", () => {
+    checkTabsPerformance(tabs());
   });
 
-  it("makes first panel active", () => {
-    expect(getTabpanel(result, "First")).toBeVisible();
+  // Or use convenience methods to observe and interact with your tab elements
+  it('renders 3 tabs', () => {
+    expect(tabs.getAllTabs()).toHaveLength(3);
   });
-});
 
-it("acts as a tablist", () => {
-  expect(isValidTablist(result)).toBe(true);
-});
-```
+  it('selects first tab', () => {
+    expect(tabs.getSelectedTab('First')).toBeInTheDocument();
+  });
 
-## Jest
+  it('renders first tabpanel', () => {
+    expect(tabs.getTabpanel()).toHaveTextContent('First panel');
+  });
 
-Import `@auditioner/jest` to extend jest with custom matchers:
+  describe('when clicking on second tab', () => {
+    beforeEach(() => {
+      user.click(tabs.getTab('Second'));
+    });
 
-```ts
-import "@auditioner/jest";
-import { tablist } from "@auditioner/roles";
+    it('selects second tab', () => {
+      expect(tabs.getSelectedTab('Second')).toBeInTheDocument();
+    });
 
-it("is a tablist", () => {
-  const result = render(<Component />);
-  expect(result).toBeValidTablist();
-  expect(result).toActLikeATablist();
-  expect(result).toPerformAsATablist();
-  expect(result).toPerformAs("tablist");
-  expect(result).toHaveRole("tablist");
-
-  expect(result).toMatchRole(
-    tablist({
-      labels: ["First", "Second", "Third"],
-    })
-  );
-
-  expect(result).toActAs(
-    tablist({
-      labels: ["First", "Second", "Third"],
-    })
-  );
-
-  expect(result).toActAsTablist();
+    it('renders second tabpanel', () => {
+      expect(tabs.getTabpanel()).toHaveTextContent('Second panel');
+    });
+  });
 });
 ```
