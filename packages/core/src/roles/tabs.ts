@@ -13,7 +13,10 @@ export function getTabs(container: HTMLElement) {
       return queries.getByRole(container, 'tab', { name });
     },
     getSelectedTab(name?: string) {
-      return queries.getByRole(container, 'tab', { selected: true, name });
+      return queries.getByRole(container, 'tab', {
+        selected: true,
+        name,
+      } as any);
     },
     getTabpanel(name?: string) {
       return queries.getByRole(container, 'tabpanel', { name });

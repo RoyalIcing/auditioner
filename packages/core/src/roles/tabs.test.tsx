@@ -26,8 +26,8 @@ export function TabsReach() {
 }
 
 describe('reach tabs', () => {
-  const subject = lazy(() => render(<TabsReach />));
-  const tabs = lazy(() => getTabs(subject().container));
+  const { container } = lazy(() => render(<TabsReach />));
+  const tabs = lazy(() => getTabs(container()));
 
   it('fulfills tab roles', () => {
     checkTabsPerformance(tabs());
