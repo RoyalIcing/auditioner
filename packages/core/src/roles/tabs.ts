@@ -15,10 +15,7 @@ export function auditionTabs(queries: typeof screen) {
       return queries.getByRole('tab', { name });
     },
     getSelectedTab(name?: string) {
-      return queries.getByRole('tab', {
-        selected: true,
-        name,
-      });
+      return queries.getByRole('tab', { selected: true, name });
     },
     getTabpanel(name?: string) {
       return queries.getByRole('tabpanel', { name });
