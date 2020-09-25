@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { getTabs, checkTabsPerformance } from './tabs';
+import { auditionTabs, checkTabsPerformance } from './tabs';
 import { lazy } from 'jest-zest';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { Tabs, Tab, TabList, TabPanel, TabPanels } from '@reach/tabs';
@@ -26,8 +26,10 @@ export function TabsReach() {
 }
 
 describe('reach tabs', () => {
-  const { container } = lazy(() => render(<TabsReach />));
-  const tabs = lazy(() => getTabs(container()));
+  beforeEach(() => {
+    render(<TabsReach />);
+  })
+  const tabs = lazy(() => auditionTabs(screen));
 
   it('fulfills tab roles', () => {
     checkTabsPerformance(tabs());

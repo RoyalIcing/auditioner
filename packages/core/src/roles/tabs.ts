@@ -1,49 +1,32 @@
-import { queries, prettyDOM } from '@testing-library/dom';
+// https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html
+import { screen } from '@testing-library/dom';
 import user from '@testing-library/user-event';
+import { followControlled, assertDefined, assertHasRole } from './shared';
 
-export function getTabs(container: HTMLElement) {
+export function auditionTabs(queries: typeof screen) {
   return {
     getTablist(name?: string) {
-      return queries.getByRole(container, 'tablist', { name });
+      return queries.getByRole('tablist', { name });
     },
     getAllTabs() {
-      return queries.getAllByRole(container, 'tab');
+      return queries.getAllByRole('tab');
     },
     getTab(name?: string) {
-      return queries.getByRole(container, 'tab', { name });
+      return queries.getByRole('tab', { name });
     },
     getSelectedTab(name?: string) {
-      return queries.getByRole(container, 'tab', {
+      return queries.getByRole('tab', {
         selected: true,
         name,
       } as any);
     },
     getTabpanel(name?: string) {
-      return queries.getByRole(container, 'tabpanel', { name });
+      return queries.getByRole('tabpanel', { name });
     },
   };
 }
 
-function assertDefined<T>(input: T | undefined | null): asserts input is T {
-  if (input == null) {
-    throw new Error(`Assertion failed: ${input} must be defined`);
-  }
-}
-
-function assertHasRole<T>(el: HTMLElement, expectedRole: string) {
-  if (el.getAttribute('role') !== expectedRole) {
-    throw new Error(`Assertion failed: ${prettyDOM(el)} must have role`);
-  }
-}
-
-function followControlled(el: HTMLElement): HTMLElement | null {
-  const id = el.getAttribute('aria-controls');
-  assertDefined(id);
-  assertDefined(el.ownerDocument);
-  return el.ownerDocument.getElementById(id);
-}
-
-export function checkTabsPerformance(subject: ReturnType<typeof getTabs>) {
+export function checkTabsPerformance(subject: ReturnType<typeof auditionTabs>) {
   const tabs = subject.getAllTabs();
 
   tabs.forEach(tab => {
