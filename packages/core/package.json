@@ -34,7 +34,8 @@
   "module": "dist/core.esm.js",
   "devDependencies": {
     "@adobe/react-spectrum": "^3.3.0",
-    "@reach/tabs": "^0.10.5",
+    "@reach/menu-button": "^0.11.2",
+    "@reach/tabs": "^0.11.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.6",
