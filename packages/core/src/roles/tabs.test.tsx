@@ -1,13 +1,5 @@
 import * as React from 'react';
-import {
-  auditionTabs,
-  checkTabsPerformance,
-  tablist,
-  tabs,
-  tab,
-  tabpanel,
-} from './tabs';
-import { lazy } from 'jest-zest';
+import { tablist, tabs, tab, tabpanel } from './tabs';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
