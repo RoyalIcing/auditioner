@@ -14,6 +14,7 @@
 
 - [Roles](#roles)
   - [Tabs](#tabs)
+  - [Checkboxes](#checkboxes)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -24,6 +25,7 @@
 - checkbox
 - radiogroup / radio
 - tab
+- menu
 - summary
 
 ### Tabs
@@ -31,44 +33,75 @@
 #### Examples
 
 ```ts
-import { auditionTabs } from "auditioner";
+import { screenTest, tablist, tabs, tab, tabpanel } from "auditioner";
 
 describe("your tabs component", () => {
-  beforeEach(() => {
-    render(<Tabs />);
-  });
-  const tabs = () => auditionTabs(screen);
+  beforeEach(() => render(<Tabs />));
 
-  // Check tab interactions in one go
-  it("fulfills tab roles", () => {
-    checkTabsPerformance(tabs());
-  });
-
-  // Or use convenience methods to observe and interact with your tab elements
   it("renders 3 tabs", () => {
-    expect(tabs.getAllTabs()).toHaveLength(3);
+    expect(screenTest(tabs())).toHaveLength(3);
   });
 
   it("selects first tab", () => {
-    expect(tabs.getSelectedTab("First")).toBeInTheDocument();
+    expect(screenTest(tab("First").selected)).toBeInTheDocument();
   });
 
   it("renders first tabpanel", () => {
-    expect(tabs.getTabpanel()).toHaveTextContent("First panel");
+    expect(screenTest(tabpanel())).toHaveTextContent("First panel");
   });
 
   describe("when clicking on second tab", () => {
     beforeEach(() => {
-      user.click(tabs.getTab("Second"));
+      user.click(screenTest(tab("Second")));
     });
 
     it("selects second tab", () => {
-      expect(tabs.getSelectedTab("Second")).toBeInTheDocument();
+      expect(screenTest(tab("Second").selected)).toBeInTheDocument();
     });
 
     it("renders second tabpanel", () => {
-      expect(tabs.getTabpanel()).toHaveTextContent("Second panel");
+      expect(screenTest(tabpanel())).toHaveTextContent("Second panel");
     });
   });
 });
+```
+
+### Checkboxes
+
+#### Examples
+
+```ts
+import { checkbox, checkboxes, screenTest } from "auditioner";
+
+describe("your form component", () => {
+  beforeEach(() => {
+    render(<YourForm />);
+  });
+
+  it("has First checkbox", () => {
+    expect(screenTest(checkbox("First"))).toBeInTheDocument();
+  });
+
+  it("has 3 checkboxes", () => {
+    expect(screenTest(checkboxes())).toHaveLength(3);
+  });
+});
+```
+
+### Scene
+
+```ts
+import { scene } from "auditioner";
+
+expect(
+  screenTest(
+    scene(
+      form("Sign up", [
+        textbox("Email address"),
+        textbox("Password"),
+        button("Sign up"),
+      ])
+    )
+  )
+).toBe(true);
 ```

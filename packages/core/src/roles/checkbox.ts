@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/dom';
+import { screen, queries, BoundFunctions, Queries } from '@testing-library/dom';
 
 export function auditionCheckboxes(queries: typeof screen) {
   return {
@@ -24,6 +24,19 @@ export function auditionCheckboxes(queries: typeof screen) {
 
     getAllCheckboxes() {
       return this.all('checkbox', { ...this.options });
+    },
+  };
+}
+
+export function checkbox<Q extends Queries = typeof queries>(
+  name?: string | RegExp
+) {
+  return {
+    get(source: BoundFunctions<Q>) {
+      return source.getByRole('checkbox', { name });
+    },
+    getAll(source: BoundFunctions<Q>) {
+      return source.getAllByRole('checkbox', { name });
     },
   };
 }

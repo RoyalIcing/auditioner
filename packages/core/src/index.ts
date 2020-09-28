@@ -1,16 +1,2 @@
-import * as rolesQueries from './roles/all';
-export { rolesQueries };
-
-export const sum = (a: number, b: number) => {
-  if ('development' === process.env.NODE_ENV) {
-    console.log('boop');
-  }
-  return a + b;
-};
-
-type ButtonInput = {
-  getByRole(role: 'button'): HTMLElement;
-};
-export function actsLikeButton(input: ButtonInput): boolean {
-  return input.getByRole('button') != null;
-}
+export * from './roles/all';
+export * from './screen';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { auditionCheckboxes } from './checkbox';
+import { auditionCheckboxes, checkbox } from './checkbox';
 import { lazy, freshFn } from 'jest-zest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
@@ -17,6 +17,14 @@ describe('Checkbox', () => {
       const { getCheckbox, getAllCheckboxes } = lazy(() =>
         auditionCheckboxes(screen)
       );
+
+      it('has First checkbox', () => {
+        expect(checkbox('First').get(screen)).toBeInTheDocument();
+      });
+
+      it('has 3 checkboxes', () => {
+        expect(checkbox().getAll(screen)).toHaveLength(3);
+      });
 
       it('has First checkbox', () => {
         expect(getCheckbox('First')).toBeInTheDocument();
