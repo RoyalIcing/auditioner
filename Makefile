@@ -14,6 +14,9 @@ install:
 test:
 	cd packages/core && npm run test
 
+test_watch:
+	watchexec -w packages/core "make test"
+
 build:
 	cd packages/core && npm run build
 
