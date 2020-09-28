@@ -7,65 +7,70 @@ import '@testing-library/jest-dom';
 import { MenuSpectrum } from './menu-spectrum';
 import { MenuReach } from './menu-reach';
 
-describe.each([
-  ['<MenuSpectrum>', MenuSpectrum],
-  ['<MenuReach>', MenuReach],
-])('%s', (_displayName, MenuComponent) => {
-  const dispatch = freshFn();
-  beforeEach(() => {
-    render(<MenuComponent dispatch={dispatch} />);
-  });
-  const { getMenu, getAllMenuItems, getMenuItem } = lazy(() =>
-    auditionMenu(screen)
-  );
-
-  describe('when opening Edit menu', () => {
+describe('Menu', () => {
+  describe.each([
+    ['<MenuSpectrum>', MenuSpectrum],
+    ['<MenuReach>', MenuReach],
+  ])('%s', (_displayName, MenuComponent) => {
+    const dispatch = freshFn();
     beforeEach(() => {
-      user.click(screen.getByRole('button', { name: 'Edit' }));
+      render(<MenuComponent dispatch={dispatch} />);
     });
+    const { getMenu, getAllMenuItems, getMenuItem } = lazy(() =>
+      auditionMenu(screen)
+    );
 
-    it('renders menu', () => {
-      expect(getMenu()).toBeInTheDocument();
-    });
+    describe('when opening Edit menu', () => {
+      beforeEach(() => {
+        user.click(screen.getByRole('button', { name: 'Edit' }));
+      });
 
-    it('renders 3 menuitems', () => {
-      expect(getAllMenuItems()).toHaveLength(3);
-    });
+      it('renders menu', () => {
+        expect(getMenu()).toBeInTheDocument();
+      });
 
-    it('renders 3 menuitems: Cut, Copy, Paste', () => {
+      it('renders 3 menuitems', () => {
+        expect(getAllMenuItems()).toHaveLength(3);
+      });
+
+      it('renders 3 menuitems: Cut, Copy, Paste', () => {
         const [first, second, third] = getAllMenuItems();
         expect(first).toHaveTextContent('Cut');
         expect(second).toHaveTextContent('Copy');
         expect(third).toHaveTextContent('Paste');
-    });
-
-    describe('when clicking on Cut item', () => {
-      beforeEach(() => {
-        user.click(getMenuItem('Cut'));
       });
 
-      it('calls select with cut', () => {
-        expect(dispatch).toHaveBeenCalledWith({ type: 'select', id: 'cut' });
-      });
-    });
+      describe('when clicking on Cut item', () => {
+        beforeEach(() => {
+          user.click(getMenuItem('Cut'));
+        });
 
-    describe('when clicking on Copy item', () => {
-      beforeEach(() => {
-        user.click(getMenuItem('Copy'));
-      });
-
-      it('calls select with copy', () => {
-        expect(dispatch).toHaveBeenCalledWith({ type: 'select', id: 'copy' });
-      });
-    });
-
-    describe('when clicking on Paste item', () => {
-      beforeEach(() => {
-        user.click(getMenuItem('Paste'));
+        it('calls select with cut', () => {
+          expect(dispatch).toHaveBeenCalledWith({ type: 'select', id: 'cut' });
+        });
       });
 
-      it('calls select with paste', () => {
-        expect(dispatch).toHaveBeenCalledWith({ type: 'select', id: 'paste' });
+      describe('when clicking on Copy item', () => {
+        beforeEach(() => {
+          user.click(getMenuItem('Copy'));
+        });
+
+        it('calls select with copy', () => {
+          expect(dispatch).toHaveBeenCalledWith({ type: 'select', id: 'copy' });
+        });
+      });
+
+      describe('when clicking on Paste item', () => {
+        beforeEach(() => {
+          user.click(getMenuItem('Paste'));
+        });
+
+        it('calls select with paste', () => {
+          expect(dispatch).toHaveBeenCalledWith({
+            type: 'select',
+            id: 'paste',
+          });
+        });
       });
     });
   });
