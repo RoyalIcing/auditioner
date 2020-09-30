@@ -15,6 +15,7 @@
 - [Roles](#roles)
   - [Tabs](#tabs)
   - [Checkboxes](#checkboxes)
+  - [Menus](#menus)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -84,6 +85,40 @@ describe("your form component", () => {
 
   it("has 3 checkboxes", () => {
     expect(screenTest(checkboxes())).toHaveLength(3);
+  });
+});
+```
+
+### Menus
+
+#### Examples
+
+```ts
+import { button, menu, menuitem, menuitems, screenTest } from "auditioner";
+import user from "@testing-library/user-event";
+
+describe("your menu component", () => {
+  beforeEach(() => {
+    render(<YourMenu />);
+  });
+
+  describe("when action menu is clicked", () => {
+    beforeEach(() => user.click(screenTest(button("Actions"))));
+
+    it("opens menu", () => {
+      expect(screenTest(menu("Actions"))).toBeVisible();
+    });
+
+    it("has Cut item", () => {
+      expect(screenTest(menuitem("Actions"))).toBeVisible();
+    });
+
+    it("has Cut, Copy, Paste items", () => {
+      const [cut, copy, paste] = screenTest(menuitems());
+      expect(cut).toHaveTextContent("Cut");
+      expect(copy).toHaveTextContent("Copy");
+      expect(paste).toHaveTextContent("Paste");
+    });
   });
 });
 ```

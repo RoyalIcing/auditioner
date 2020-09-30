@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { auditionMenu } from './menu';
+import { auditionMenu, menu, menuitem } from './menu';
 import { lazy, freshFn } from 'jest-zest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { MenuSpectrum } from './menu-spectrum';
 import { MenuReach } from './menu-reach';
+import { screenTest } from '../screen';
 
 describe('Menu', () => {
   describe.each([
@@ -16,9 +17,7 @@ describe('Menu', () => {
     beforeEach(() => {
       render(<MenuComponent dispatch={dispatch} />);
     });
-    const { getMenu, getAllMenuItems, getMenuItem } = lazy(() =>
-      auditionMenu(screen)
-    );
+    const { getAllMenuItems, getMenuItem } = lazy(() => auditionMenu(screen));
 
     describe('when opening Edit menu', () => {
       beforeEach(() => {
@@ -26,11 +25,11 @@ describe('Menu', () => {
       });
 
       it('renders menu', () => {
-        expect(getMenu()).toBeInTheDocument();
+        expect(screenTest(menu())).toBeInTheDocument();
       });
 
       it('renders 3 menuitems', () => {
-        expect(getAllMenuItems()).toHaveLength(3);
+        expect(screenTest(menuitem().all)).toHaveLength(3);
       });
 
       it('renders 3 menuitems: Cut, Copy, Paste', () => {

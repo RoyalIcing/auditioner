@@ -1,62 +1,53 @@
 import * as React from 'react';
-import { auditionCheckboxes, checkbox } from './checkbox';
-import { lazy, freshFn } from 'jest-zest';
+import { checkbox } from './checkbox';
+import { freshFn } from 'jest-zest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { CheckboxSpectrum } from './checkbox-spectrum';
+import { CheckboxReach } from './checkbox-reach';
+import { screenTest } from '../screen';
 
 describe('Checkbox', () => {
-  describe.each([['<CheckboxSpectrum>', CheckboxSpectrum]])(
-    '%s',
-    (_displayName, CheckboxComponent) => {
-      const dispatch = freshFn();
+  describe.each([
+    ['<CheckboxSpectrum>', CheckboxSpectrum],
+    ['<CheckboxReach>', CheckboxReach],
+  ])('%s', (_displayName, CheckboxComponent) => {
+    const dispatch = freshFn();
+    beforeEach(() => {
+      render(<CheckboxComponent dispatch={dispatch} />);
+    });
+
+    it('has First checkbox', () => {
+      expect(screenTest(checkbox('First'))).toBeInTheDocument();
+    });
+
+    it('has 3 checkboxes', () => {
+      expect(checkbox().getAll(screen)).toHaveLength(3);
+    });
+
+    describe('when First checkbox is clicked', () => {
       beforeEach(() => {
-        render(<CheckboxComponent dispatch={dispatch} />);
-      });
-      const { getCheckbox, getAllCheckboxes } = lazy(() =>
-        auditionCheckboxes(screen)
-      );
-
-      it('has First checkbox', () => {
-        expect(checkbox('First').get(screen)).toBeInTheDocument();
+        user.click(screenTest(checkbox('First')));
       });
 
-      it('has 3 checkboxes', () => {
-        expect(checkbox().getAll(screen)).toHaveLength(3);
+      it('calls dispatch with first', () => {
+        expect(dispatch).toHaveBeenCalledWith({ type: 'first' });
+      });
+    });
+
+    describe('when Second checkbox is clicked', () => {
+      beforeEach(() => {
+        user.click(screenTest(checkbox('Second')));
       });
 
-      it('has First checkbox', () => {
-        expect(getCheckbox('First')).toBeInTheDocument();
+      it('calls dispatch with second', () => {
+        expect(dispatch).toHaveBeenCalledWith({ type: 'second' });
       });
+    });
 
-      it('has three checkboxes', () => {
-        expect(getAllCheckboxes()).toHaveLength(3);
-      });
-
-      describe('when First checkbox is clicked', () => {
-        beforeEach(() => {
-          user.click(getCheckbox('First'));
-        });
-
-        it('calls dispatch with first', () => {
-          expect(dispatch).toHaveBeenCalledWith({ type: 'first' });
-        });
-      });
-
-      describe('when Second checkbox is clicked', () => {
-        beforeEach(() => {
-          user.click(getCheckbox('Second'));
-        });
-
-        it('calls dispatch with second', () => {
-          expect(dispatch).toHaveBeenCalledWith({ type: 'second' });
-        });
-      });
-
-      it('supports disabled', () => {
-        expect(getCheckbox('Some disabled checkbox')).toBeDisabled();
-      });
-    }
-  );
+    it('supports disabled', () => {
+      expect(screenTest(checkbox('Some disabled checkbox'))).toBeDisabled();
+    });
+  });
 });

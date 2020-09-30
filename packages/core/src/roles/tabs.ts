@@ -5,7 +5,7 @@ import {
   Queries,
   ByRoleOptions,
 } from '@testing-library/dom';
-import { Descriptor } from './types';
+import { SingleDescriptor } from './types';
 
 export function tablist<Q extends Queries = typeof queries>(
   name?: string | RegExp
@@ -33,7 +33,7 @@ export function tab<Q extends Queries = typeof queries>(
   return {
     _options: { name } as ByRoleOptions,
 
-    get selected(): Descriptor<Q> {
+    get selected(): SingleDescriptor<Q> {
       return {
         get: this.get,
         _options: { ...this._options, selected: true },

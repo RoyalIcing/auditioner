@@ -1,5 +1,11 @@
-import { screen, queries, BoundFunctions, Queries } from '@testing-library/dom';
+import { queries, BoundFunctions, Queries } from '@testing-library/dom';
 
-export interface Descriptor<Q extends Queries = typeof queries> {
+export interface RoleDescriptor {
+  readonly role: string;
+  readonly name?: string | RegExp;
+  readonly all?: true;
+}
+
+export interface SingleDescriptor<Q extends Queries = typeof queries> {
   get(source: BoundFunctions<Q>): HTMLElement;
 }

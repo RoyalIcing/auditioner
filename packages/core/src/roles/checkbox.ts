@@ -31,12 +31,11 @@ export function auditionCheckboxes(queries: typeof screen) {
 export function checkbox<Q extends Queries = typeof queries>(
   name?: string | RegExp
 ) {
-  return {
-    get(source: BoundFunctions<Q>) {
-      return source.getByRole('checkbox', { name });
-    },
+  return Object.freeze({
+    role: 'checkbox',
+    name,
     getAll(source: BoundFunctions<Q>) {
       return source.getAllByRole('checkbox', { name });
     },
-  };
+  });
 }
