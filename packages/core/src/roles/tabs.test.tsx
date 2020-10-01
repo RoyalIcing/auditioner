@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { tablist, tabs, tab, tabpanel } from './tabs';
-import { render, screen } from '@testing-library/react';
+import { tablist, tab, tabpanel } from './tabs';
+import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { TabsReach } from './tabs-reach';
+import { screenTest } from '../screen';
 
 describe('reach tabs', () => {
   beforeEach(() => {
@@ -11,36 +12,40 @@ describe('reach tabs', () => {
   });
 
   it('renders tablist', () => {
-    expect(tablist().get(screen)).toBeInTheDocument();
+    expect(screenTest(tablist())).toBeInTheDocument();
   });
 
   it('renders 3 tabs', () => {
-    expect(tabs().getAll(screen)).toHaveLength(3);
+    expect(screenTest(tab().all)).toHaveLength(3);
+  });
+
+  it('has first tab', () => {
+    expect(screenTest(tab('First'))).toBeInTheDocument();
   });
 
   it('selects first tab', () => {
-    expect(tab('First').selected.get(screen)).toBeInTheDocument();
+    expect(screenTest(tab('First').selected)).toBeInTheDocument();
   });
 
   it('renders first tabpanel', () => {
-    expect(tabpanel().get(screen)).toHaveTextContent('First panel');
+    expect(screenTest(tabpanel())).toHaveTextContent('First panel');
   });
 
   it('labels first tabpanel', () => {
-    expect(tabpanel('First').get(screen)).toHaveTextContent('First panel');
+    expect(screenTest(tabpanel('First'))).toHaveTextContent('First panel');
   });
 
   describe('when clicking on second tab', () => {
     beforeEach(() => {
-      user.click(tab('Second').get(screen));
+      user.click(screenTest(tab('Second')));
     });
 
     it('selects second tab', () => {
-      expect(tab('Second').selected.get(screen)).toBeInTheDocument();
+      expect(screenTest(tab('Second').selected)).toBeInTheDocument();
     });
 
     it('renders second tabpanel', () => {
-      expect(tabpanel().get(screen)).toHaveTextContent('Second panel');
+      expect(screenTest(tabpanel())).toHaveTextContent('Second panel');
     });
   });
 });

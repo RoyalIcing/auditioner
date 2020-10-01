@@ -18,9 +18,11 @@ export function resolverFor(
 ): DescriptorResolver<RoleDescriptor | (RoleDescriptor & AllDescriptor)> {
   return (descriptor: RoleDescriptor | (RoleDescriptor & AllDescriptor)) => {
     if ('all' in descriptor && descriptor.all === true) {
-      return source.getAllByRole(descriptor.role, descriptor);
+      const { name } = descriptor;
+      return source.getAllByRole(descriptor.role, { name });
     } else {
-      return source.getByRole(descriptor.role, descriptor);
+      const { name, isSelected: selected } = descriptor;
+      return source.getByRole(descriptor.role, { name, selected });
     }
   };
 }

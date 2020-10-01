@@ -3,6 +3,7 @@ import { queries, BoundFunctions, Queries } from '@testing-library/dom';
 export interface RoleDescriptor {
   readonly role: string;
   readonly name?: string | RegExp;
+  readonly isSelected?: boolean;
   // readonly all?: true;
 }
 
