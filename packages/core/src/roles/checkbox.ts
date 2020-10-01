@@ -1,41 +1,11 @@
-import { screen, queries, BoundFunctions, Queries } from '@testing-library/dom';
+import { AllDescriptor, RoleDescriptor } from './types';
 
-export function auditionCheckboxes(queries: typeof screen) {
-  return {
-    single: queries.getByRole.bind(queries),
-    all: queries.getAllByRole.bind(queries),
-    options: {} as { hidden?: boolean },
-
-    optional() {
-      return {
-        ...this,
-        single: queries.queryByRole.bind(queries),
-        all: queries.queryAllByRole.bind(queries),
-      };
-    },
-
-    hidden() {
-      return { ...this, options: { ...this.options, hidden: true } };
-    },
-
-    getCheckbox(name?: string) {
-      return this.single('checkbox', { ...this.options, name });
-    },
-
-    getAllCheckboxes() {
-      return this.all('checkbox', { ...this.options });
-    },
-  };
-}
-
-export function checkbox<Q extends Queries = typeof queries>(
-  name?: string | RegExp
-) {
+export function checkbox(name?: string | RegExp) {
   return Object.freeze({
     role: 'checkbox',
     name,
-    getAll(source: BoundFunctions<Q>) {
-      return source.getAllByRole('checkbox', { name });
+    get all(): RoleDescriptor & AllDescriptor {
+      return Object.create(this, { all: { value: true } });
     },
   });
 }

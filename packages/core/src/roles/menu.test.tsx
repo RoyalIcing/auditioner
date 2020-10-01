@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { auditionMenu, menu, menuitem } from './menu';
-import { lazy, freshFn } from 'jest-zest';
+import { menu, menuitem } from './menu';
+import { freshFn } from 'jest-zest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -17,7 +17,6 @@ describe('Menu', () => {
     beforeEach(() => {
       render(<MenuComponent dispatch={dispatch} />);
     });
-    const { getAllMenuItems, getMenuItem } = lazy(() => auditionMenu(screen));
 
     describe('when opening Edit menu', () => {
       beforeEach(() => {
@@ -33,7 +32,7 @@ describe('Menu', () => {
       });
 
       it('renders 3 menuitems: Cut, Copy, Paste', () => {
-        const [first, second, third] = getAllMenuItems();
+        const [first, second, third] = screenTest(menuitem().all);
         expect(first).toHaveTextContent('Cut');
         expect(second).toHaveTextContent('Copy');
         expect(third).toHaveTextContent('Paste');
@@ -41,7 +40,7 @@ describe('Menu', () => {
 
       describe('when clicking on Cut item', () => {
         beforeEach(() => {
-          user.click(getMenuItem('Cut'));
+          user.click(screenTest(menuitem('Cut')));
         });
 
         it('calls select with cut', () => {
@@ -51,7 +50,7 @@ describe('Menu', () => {
 
       describe('when clicking on Copy item', () => {
         beforeEach(() => {
-          user.click(getMenuItem('Copy'));
+          user.click(screenTest(menuitem('Copy')));
         });
 
         it('calls select with copy', () => {
@@ -61,7 +60,7 @@ describe('Menu', () => {
 
       describe('when clicking on Paste item', () => {
         beforeEach(() => {
-          user.click(getMenuItem('Paste'));
+          user.click(screenTest(menuitem('Paste')));
         });
 
         it('calls select with paste', () => {

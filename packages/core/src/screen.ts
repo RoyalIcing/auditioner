@@ -1,15 +1,10 @@
 // https://en.wikipedia.org/wiki/Screen_test
 import { screen } from '@testing-library/dom';
-import { RoleDescriptor, SingleDescriptor } from './roles/types';
+import { DescriptorResult, resolverFor } from './resolver';
+import { AllDescriptor, RoleDescriptor } from './roles/types';
 
-export function screenTest(descriptor: RoleDescriptor | SingleDescriptor) {
-  if ('role' in descriptor) {
-    if ('all' in descriptor) {
-      return screen.getAllByRole(descriptor.role, descriptor);
-    } else {
-      return screen.getByRole(descriptor.role, descriptor);
-    }
-  } else {
-    return descriptor.get(screen);
-  }
+export function screenTest<
+  T extends RoleDescriptor | (RoleDescriptor & AllDescriptor)
+>(descriptor: T): DescriptorResult<T> {
+  return resolverFor(screen)(descriptor) as DescriptorResult<T>;
 }

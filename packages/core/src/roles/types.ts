@@ -3,7 +3,11 @@ import { queries, BoundFunctions, Queries } from '@testing-library/dom';
 export interface RoleDescriptor {
   readonly role: string;
   readonly name?: string | RegExp;
-  readonly all?: true;
+  // readonly all?: true;
+}
+
+export interface AllDescriptor {
+  readonly all: true;
 }
 
 export interface SingleDescriptor<Q extends Queries = typeof queries> {
