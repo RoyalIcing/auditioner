@@ -53,6 +53,6 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
-    "@testing-library/dom": "^7.24.2"
+    "@testing-library/dom": "^7.24.3"
   }
 }
