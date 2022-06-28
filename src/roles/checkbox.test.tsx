@@ -30,8 +30,8 @@ describe('Checkbox', () => {
       });
 
       describe('when First checkbox is clicked', () => {
-        beforeEach(() => {
-          user.click(screenTest(Checkbox('First')));
+        beforeEach(async () => {
+          await user.click(screenTest(Checkbox('First')));
         });
 
         it('calls dispatch with first', () => {
@@ -40,8 +40,8 @@ describe('Checkbox', () => {
       });
 
       describe('when Second checkbox is clicked', () => {
-        beforeEach(() => {
-          user.click(screenTest(Checkbox('Second')));
+        beforeEach(async () => {
+          await user.click(screenTest(Checkbox('Second')));
         });
 
         it('calls dispatch with second', () => {

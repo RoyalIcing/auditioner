@@ -41,8 +41,8 @@ describe('Tabs', () => {
     });
 
     describe('when clicking on second tab', () => {
-      beforeEach(() => {
-        user.click(screenTest(Tab('Second')));
+      beforeEach(async () => {
+        await user.click(screenTest(Tab('Second')));
       });
 
       it('selects second tab', () => {

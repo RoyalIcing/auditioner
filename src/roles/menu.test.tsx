@@ -25,8 +25,8 @@ describe('Menu', () => {
     });
 
     describe('when opening Edit menu', () => {
-      beforeEach(() => {
-        user.click(screenTest(Button('Edit')));
+      beforeEach(async () => {
+        await user.click(screenTest(Button('Edit')));
       });
 
       it('renders menu', () => {
@@ -45,8 +45,8 @@ describe('Menu', () => {
       });
 
       describe('when clicking on Cut item', () => {
-        beforeEach(() => {
-          user.click(screenTest(Menu.item('Cut')));
+        beforeEach(async () => {
+          await user.click(screenTest(Menu.item('Cut')));
         });
 
         it('calls select with cut', () => {
@@ -55,8 +55,8 @@ describe('Menu', () => {
       });
 
       describe('when clicking on Copy item', () => {
-        beforeEach(() => {
-          user.click(screenTest(Menu.item('Copy')));
+        beforeEach(async () => {
+          await user.click(screenTest(Menu.item('Copy')));
         });
 
         it('calls select with copy', () => {
@@ -65,8 +65,8 @@ describe('Menu', () => {
       });
 
       describe('when clicking on Paste item', () => {
-        beforeEach(() => {
-          user.click(screenTest(Menu.item('Paste')));
+        beforeEach(async () => {
+          await user.click(screenTest(Menu.item('Paste')));
         });
 
         it('calls select with paste', () => {

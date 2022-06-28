@@ -32,8 +32,8 @@ describe('Button', () => {
     });
 
     describe('when clicked', () => {
-      beforeEach(() => {
-        user.click(screenTest(Button('Button Title')));
+      beforeEach(async () => {
+        await user.click(screenTest(Button('Button Title')));
       });
 
       it('calls dispatch', () => {
