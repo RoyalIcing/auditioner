@@ -22,7 +22,7 @@ function tabpanel(name?: string | RegExp) {
   });
 }
 
-function tabInner(name?: string | RegExp) {
+function tab(name?: string | RegExp) {
   return Object.freeze({
     role: 'tab',
     name,
@@ -35,9 +35,9 @@ function tabInner(name?: string | RegExp) {
   });
 }
 
-export const tab = Object.assign(tabInner, {
+export const Tab = Object.assign(tab, {
   get all() {
-    return tabInner().all;
+    return tab().all;
   },
   get list() {
     return tablist;
