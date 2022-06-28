@@ -1,18 +1,21 @@
 import * as React from 'react';
 import { menu, menuitem } from './menu';
-import { freshFn } from 'jest-zest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { MenuSpectrum } from './menu-spectrum';
-import { MenuReach } from './menu-reach';
 import { MenuHeadlessUI } from './menu-headlessui';
 import { screenTest } from '../screen';
+
+function freshFn() {
+  const fn = jest.fn();
+  afterEach(() => fn.mockClear());
+  return fn;
+}
 
 describe('Menu', () => {
   describe.each([
     ['<MenuSpectrum>', MenuSpectrum],
-    ['<MenuReach>', MenuReach],
     ['<MenuHeadlessUI>', MenuHeadlessUI],
   ])('%s', (_displayName, MenuComponent) => {
     const dispatch = freshFn();

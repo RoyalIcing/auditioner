@@ -3,12 +3,12 @@ import { tablist, tab, tabpanel } from './tabs';
 import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { TabsReach } from './tabs-reach';
+import { TabsHeadlessUI } from './tabs-headlessui';
 import { screenTest } from '../screen';
 
 describe('reach tabs', () => {
   beforeEach(() => {
-    render(<TabsReach />);
+    render(<TabsHeadlessUI />);
   });
 
   it('renders tablist', () => {
