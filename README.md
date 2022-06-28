@@ -35,7 +35,7 @@
 #### Examples
 
 ```ts
-import { screenTest, tablist, tabs, tab, tabpanel } from 'auditioner';
+import { screenTest, Tab } from 'auditioner';
 
 describe('your tabs component', () => {
   beforeEach(() => render(<Tabs />));
