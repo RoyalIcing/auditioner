@@ -1,39 +1,146 @@
+<div align="center">
+<h1>auditioner</h1>
+
+<p style="font-size: 400%; line-height: 1; margin: 0">🎬</p>
+
+<p>Test that your components can play the accessibility roles we need.</p>
+
+</div>
+
+---
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
-- [TSDX Bootstrap](#tsdx-bootstrap)
-  - [Local Development](#local-development)
-    - [`npm start` or `yarn start`](#npm-start-or-yarn-start)
-    - [`npm run build` or `yarn build`](#npm-run-build-or-yarn-build)
-    - [`npm test` or `yarn test`](#npm-test-or-yarn-test)
+- [Roles](#roles)
+  - [Tabs](#tabs)
+    - [Examples](#examples)
+  - [Checkboxes](#checkboxes)
+    - [Examples](#examples-1)
+  - [Menus](#menus)
+    - [Examples](#examples-2)
+  - [Scene](#scene)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# TSDX Bootstrap
+## Roles
 
-This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
+- button
+- link
+- checkbox
+- radiogroup / radio
+- tab
+- menu
+- summary
 
-## Local Development
+### Tabs
 
-Below is a list of commands you will probably find useful.
+#### Examples
 
-### `npm start` or `yarn start`
+```ts
+import { screenTest, tablist, tabs, tab, tabpanel } from 'auditioner';
 
-Runs the project in development/watch mode. Your project will be rebuilt upon changes. TSDX has a special logger for you convenience. Error messages are pretty printed and formatted for compatibility VS Code's Problems tab.
+describe('your tabs component', () => {
+  beforeEach(() => render(<Tabs />));
 
-<img src="https://user-images.githubusercontent.com/4060187/52168303-574d3a00-26f6-11e9-9f3b-71dbec9ebfcb.gif" width="600" />
+  it('renders 3 tabs', () => {
+    expect(screenTest(tabs())).toHaveLength(3);
+  });
 
-Your library will be rebuilt if you make edits.
+  it('selects first tab', () => {
+    expect(screenTest(tab('First').selected)).toBeInTheDocument();
+  });
 
-### `npm run build` or `yarn build`
+  it('renders first tabpanel', () => {
+    expect(screenTest(tabpanel())).toHaveTextContent('First panel');
+  });
 
-Bundles the package to the `dist` folder.
-The package is optimized and bundled with Rollup into multiple formats (CommonJS, UMD, and ES Module).
+  describe('when clicking on second tab', () => {
+    beforeEach(() => {
+      user.click(screenTest(tab('Second')));
+    });
 
-<img src="https://user-images.githubusercontent.com/4060187/52168322-a98e5b00-26f6-11e9-8cf6-222d716b75ef.gif" width="600" />
+    it('selects second tab', () => {
+      expect(screenTest(tab('Second').selected)).toBeInTheDocument();
+    });
 
-### `npm test` or `yarn test`
+    it('renders second tabpanel', () => {
+      expect(screenTest(tabpanel())).toHaveTextContent('Second panel');
+    });
+  });
+});
+```
 
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
+### Checkboxes
+
+#### Examples
+
+```ts
+import { checkbox, checkboxes, screenTest } from 'auditioner';
+
+describe('your form component', () => {
+  beforeEach(() => {
+    render(<YourForm />);
+  });
+
+  it('has First checkbox', () => {
+    expect(screenTest(checkbox('First'))).toBeInTheDocument();
+  });
+
+  it('has 3 checkboxes', () => {
+    expect(screenTest(checkboxes())).toHaveLength(3);
+  });
+});
+```
+
+### Menus
+
+#### Examples
+
+```ts
+import { button, menu, menuitem, menuitems, screenTest } from 'auditioner';
+import user from '@testing-library/user-event';
+
+describe('your menu component', () => {
+  beforeEach(() => {
+    render(<YourMenu />);
+  });
+
+  describe('when action menu is clicked', () => {
+    beforeEach(() => user.click(screenTest(button('Actions'))));
+
+    it('opens menu', () => {
+      expect(screenTest(menu('Actions'))).toBeVisible();
+    });
+
+    it('has Cut item', () => {
+      expect(screenTest(menuitem('Actions'))).toBeVisible();
+    });
+
+    it('has Cut, Copy, Paste items', () => {
+      const [cut, copy, paste] = screenTest(menuitems());
+      expect(cut).toHaveTextContent('Cut');
+      expect(copy).toHaveTextContent('Copy');
+      expect(paste).toHaveTextContent('Paste');
+    });
+  });
+});
+```
+
+### Scene
+
+```ts
+import { scene } from 'auditioner';
+
+expect(
+  screenTest(
+    scene(
+      form('Sign up', [
+        textbox('Email address'),
+        textbox('Password'),
+        button('Sign up'),
+      ])
+    )
+  )
+).toBe(true);
+```
