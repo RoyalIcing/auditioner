@@ -1,6 +1,12 @@
-export function button(name?: string | RegExp) {
-  return Object.freeze({
-    role: 'button',
-    name,
-  });
-}
+import { role } from './shared';
+
+export const Button = Object.assign(
+  function button(name?: string | RegExp) {
+    return role('button', name);
+  },
+  {
+    get all() {
+      return role('button').all;
+    },
+  }
+);

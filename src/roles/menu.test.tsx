@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Menu } from './menu';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { MenuSpectrum } from './menu-spectrum';
 import { MenuHeadlessUI } from './menu-headlessui';
 import { screenTest } from '../screen';
+import { Button } from './button';
 
 function freshFn() {
   const fn = jest.fn();
@@ -25,22 +26,22 @@ describe('Menu', () => {
 
     describe('when opening Edit menu', () => {
       beforeEach(() => {
-        user.click(screen.getByRole('button', { name: 'Edit' }));
+        user.click(screenTest(Button('Edit')));
       });
 
       it('renders menu', () => {
-        expect(screenTest(Menu())).toBeInTheDocument();
+        expect(screenTest(Menu())).toBeVisible();
       });
 
-      it('renders 3 menuitems', () => {
+      it('renders 3 menu items', () => {
         expect(screenTest(Menu.item().all)).toHaveLength(3);
       });
 
-      it('renders 3 menuitems: Cut, Copy, Paste', () => {
+      it('renders 3 menu items: Cut, Copy, Paste', () => {
         const [first, second, third] = screenTest(Menu.item().all);
-        expect(first).toHaveTextContent('Cut');
-        expect(second).toHaveTextContent('Copy');
-        expect(third).toHaveTextContent('Paste');
+        expect(first).toHaveAccessibleName('Cut');
+        expect(second).toHaveAccessibleName('Copy');
+        expect(third).toHaveAccessibleName('Paste');
       });
 
       describe('when clicking on Cut item', () => {

@@ -80,6 +80,50 @@ describe('your tabs component', () => {
 });
 ```
 
+### Menus
+
+#### Examples
+
+```ts
+import { button, menu, menuitem, menuitems, screenTest } from 'auditioner';
+import user from '@testing-library/user-event';
+
+describe('your menu component', () => {
+  beforeEach(() => {
+    render(<YourMenu />);
+  });
+
+  describe('when action menu is clicked', () => {
+    beforeEach(() => user.click(screenTest(Button('Actions'))));
+
+    it('opens menu', () => {
+      expect(screenTest(Menu('Actions'))).toBeVisible();
+    });
+
+    it('has Cut item', () => {
+      expect(screenTest(Menu.item('Cut'))).toBeVisible();
+    });
+
+    it('renders 3 menu items: Cut, Copy, Paste', () => {
+      const [first, second, third] = screenTest(Menu.item().all);
+      expect(first).toHaveAccessibleName('Cut');
+      expect(second).toHaveAccessibleName('Copy');
+      expect(third).toHaveAccessibleName('Paste');
+    });
+
+    describe('when clicking on Cut item', () => {
+      beforeEach(() => {
+        user.click(screenTest(Menu.item('Cut')));
+      });
+
+      it('calls select with cut', () => {
+        expect(dispatch).toHaveBeenCalledWith({ type: 'select', id: 'cut' });
+      });
+    });
+  });
+});
+```
+
 ### Checkboxes
 
 #### Examples
@@ -102,41 +146,9 @@ describe('your form component', () => {
 });
 ```
 
-### Menus
-
-#### Examples
-
-```ts
-import { button, menu, menuitem, menuitems, screenTest } from 'auditioner';
-import user from '@testing-library/user-event';
-
-describe('your menu component', () => {
-  beforeEach(() => {
-    render(<YourMenu />);
-  });
-
-  describe('when action menu is clicked', () => {
-    beforeEach(() => user.click(screenTest(button('Actions'))));
-
-    it('opens menu', () => {
-      expect(screenTest(menu('Actions'))).toBeVisible();
-    });
-
-    it('has Cut item', () => {
-      expect(screenTest(menuitem('Actions'))).toBeVisible();
-    });
-
-    it('has Cut, Copy, Paste items', () => {
-      const [cut, copy, paste] = screenTest(menuitems());
-      expect(cut).toHaveTextContent('Cut');
-      expect(copy).toHaveTextContent('Copy');
-      expect(paste).toHaveTextContent('Paste');
-    });
-  });
-});
-```
-
 ### Scene
+
+(COMING SOON?)
 
 ```ts
 import { scene } from 'auditioner';
