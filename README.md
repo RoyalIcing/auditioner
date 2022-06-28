@@ -40,16 +40,28 @@ import { screenTest, tablist, tabs, tab, tabpanel } from 'auditioner';
 describe('your tabs component', () => {
   beforeEach(() => render(<Tabs />));
 
+  it('renders tablist', () => {
+    expect(screenTest(tablist())).toBeVisible();
+  });
+
   it('renders 3 tabs', () => {
-    expect(screenTest(tabs())).toHaveLength(3);
+    expect(screenTest(tab().all)).toHaveLength(3);
+  });
+
+  it('has first tab', () => {
+    expect(screenTest(tab('First'))).toBeVisible();
   });
 
   it('selects first tab', () => {
-    expect(screenTest(tab('First').selected)).toBeInTheDocument();
+    expect(screenTest(tab('First').selected)).toBeVisible();
   });
 
   it('renders first tabpanel', () => {
     expect(screenTest(tabpanel())).toHaveTextContent('First panel');
+  });
+
+  it('labels first tabpanel', () => {
+    expect(screenTest(tabpanel('First'))).toHaveTextContent('First panel');
   });
 
   describe('when clicking on second tab', () => {
@@ -58,7 +70,7 @@ describe('your tabs component', () => {
     });
 
     it('selects second tab', () => {
-      expect(screenTest(tab('Second').selected)).toBeInTheDocument();
+      expect(screenTest(tab('Second').selected)).toBeVisible();
     });
 
     it('renders second tabpanel', () => {

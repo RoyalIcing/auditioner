@@ -2,7 +2,7 @@
 
 import { AllDescriptor, RoleDescriptor } from './types';
 
-export function tablist(name?: string | RegExp) {
+function tablist(name?: string | RegExp) {
   return Object.freeze({
     role: 'tablist',
     name,
@@ -12,7 +12,17 @@ export function tablist(name?: string | RegExp) {
   });
 }
 
-export function tab(name?: string | RegExp) {
+function tabpanel(name?: string | RegExp) {
+  return Object.freeze({
+    role: 'tabpanel',
+    name,
+    get all(): RoleDescriptor & AllDescriptor {
+      return Object.create(this, { all: { value: true } });
+    },
+  });
+}
+
+function tabInner(name?: string | RegExp) {
   return Object.freeze({
     role: 'tab',
     name,
@@ -25,15 +35,17 @@ export function tab(name?: string | RegExp) {
   });
 }
 
-export function tabpanel(name?: string | RegExp) {
-  return Object.freeze({
-    role: 'tabpanel',
-    name,
-    get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
-    },
-  });
-}
+export const tab = Object.assign(tabInner, {
+  get all() {
+    return tabInner().all;
+  },
+  get list() {
+    return tablist;
+  },
+  get panel() {
+    return tabpanel;
+  },
+});
 
 // export function checkTabsPerformance(subject: ReturnType<typeof auditionTabs>) {
 //   const tabs = subject.getAllTabs();

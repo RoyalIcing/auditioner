@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { tablist, tab, tabpanel } from './tabs';
+import { tab } from './tabs';
 import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -17,27 +17,27 @@ describe('Tabs', () => {
     });
 
     it('renders tablist', () => {
-      expect(screenTest(tablist())).toBeInTheDocument();
+      expect(screenTest(tab.list())).toBeVisible();
     });
 
     it('renders 3 tabs', () => {
-      expect(screenTest(tab().all)).toHaveLength(3);
+      expect(screenTest(tab.all)).toHaveLength(3);
     });
 
     it('has first tab', () => {
-      expect(screenTest(tab('First'))).toBeInTheDocument();
+      expect(screenTest(tab('First'))).toBeVisible();
     });
 
     it('selects first tab', () => {
-      expect(screenTest(tab('First').selected)).toBeInTheDocument();
+      expect(screenTest(tab('First').selected)).toBeVisible();
     });
 
     it('renders first tabpanel', () => {
-      expect(screenTest(tabpanel())).toHaveTextContent('First panel');
+      expect(screenTest(tab.panel())).toHaveTextContent('First panel');
     });
 
     it('labels first tabpanel', () => {
-      expect(screenTest(tabpanel('First'))).toHaveTextContent('First panel');
+      expect(screenTest(tab.panel('First'))).toHaveTextContent('First panel');
     });
 
     describe('when clicking on second tab', () => {
@@ -46,11 +46,11 @@ describe('Tabs', () => {
       });
 
       it('selects second tab', () => {
-        expect(screenTest(tab('Second').selected)).toBeInTheDocument();
+        expect(screenTest(tab('Second').selected)).toBeVisible();
       });
 
       it('renders second tabpanel', () => {
-        expect(screenTest(tabpanel())).toHaveTextContent('Second panel');
+        expect(screenTest(tab.panel())).toHaveTextContent('Second panel');
       });
     });
   });
