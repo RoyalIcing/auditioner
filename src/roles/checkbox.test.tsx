@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { checkbox } from './checkbox';
+import { Checkbox } from './checkbox';
 import { render } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -22,16 +22,16 @@ describe('Checkbox', () => {
       });
 
       it('has First checkbox', () => {
-        expect(screenTest(checkbox('First'))).toBeInTheDocument();
+        expect(screenTest(Checkbox('First'))).toBeVisible();
       });
 
       it('has 3 checkboxes', () => {
-        expect(screenTest(checkbox().all)).toHaveLength(3);
+        expect(screenTest(Checkbox.all)).toHaveLength(3);
       });
 
       describe('when First checkbox is clicked', () => {
         beforeEach(() => {
-          user.click(screenTest(checkbox('First')));
+          user.click(screenTest(Checkbox('First')));
         });
 
         it('calls dispatch with first', () => {
@@ -41,7 +41,7 @@ describe('Checkbox', () => {
 
       describe('when Second checkbox is clicked', () => {
         beforeEach(() => {
-          user.click(screenTest(checkbox('Second')));
+          user.click(screenTest(Checkbox('Second')));
         });
 
         it('calls dispatch with second', () => {
@@ -50,7 +50,7 @@ describe('Checkbox', () => {
       });
 
       it('supports disabled', () => {
-        expect(screenTest(checkbox('Some disabled checkbox'))).toBeDisabled();
+        expect(screenTest(Checkbox('Some disabled checkbox'))).toBeDisabled();
       });
     }
   );

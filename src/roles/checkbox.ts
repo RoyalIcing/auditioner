@@ -1,11 +1,12 @@
-import { AllDescriptor, RoleDescriptor } from './types';
+import { role } from './shared';
 
-export function checkbox(name?: string | RegExp) {
-  return Object.freeze({
-    role: 'checkbox',
-    name,
-    get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
+export const Checkbox = Object.assign(
+  function button(name?: string | RegExp) {
+    return role('checkbox', name);
+  },
+  {
+    get all() {
+      return role('checkbox').all;
     },
-  });
-}
+  }
+);

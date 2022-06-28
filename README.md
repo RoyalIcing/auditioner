@@ -85,7 +85,7 @@ describe('your tabs component', () => {
 #### Examples
 
 ```ts
-import { button, menu, menuitem, menuitems, screenTest } from 'auditioner';
+import { Button, Menu, screenTest } from 'auditioner';
 import user from '@testing-library/user-event';
 
 describe('your menu component', () => {
@@ -129,7 +129,7 @@ describe('your menu component', () => {
 #### Examples
 
 ```ts
-import { checkbox, checkboxes, screenTest } from 'auditioner';
+import { Checkbox, screenTest } from 'auditioner';
 
 describe('your form component', () => {
   beforeEach(() => {
@@ -137,11 +137,11 @@ describe('your form component', () => {
   });
 
   it('has First checkbox', () => {
-    expect(screenTest(checkbox('First'))).toBeInTheDocument();
+    expect(screenTest(Checkbox('First'))).toBeVisible();
   });
 
   it('has 3 checkboxes', () => {
-    expect(screenTest(checkboxes())).toHaveLength(3);
+    expect(screenTest(Checkbox.all)).toHaveLength(3);
   });
 });
 ```
