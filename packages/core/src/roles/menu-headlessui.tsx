@@ -8,9 +8,7 @@ export function MenuHeadlessUI({
 }) {
   return (
     <Menu>
-      <Menu.Button>
-        Edit <span aria-hidden>▾</span>
-      </Menu.Button>
+      <Menu.Button>Edit</Menu.Button>
       <Menu.Items>
         <Menu.Item
           as="button"
