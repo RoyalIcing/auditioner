@@ -1,5 +1,5 @@
 {
-  "name": "@auditioner/core",
+  "name": "auditioner",
   "version": "0.1.0",
   "license": "MIT",
   "source": "src/index.ts",
@@ -21,7 +21,7 @@
     "node": ">=16"
   },
   "scripts": {
-    "prepack": "jest && npm run build && node tests/node.js",
+    "prepack": "jest && npm run build",
     "dev": "parcel watch",
     "build": "parcel build",
     "test": "jest --watch"
