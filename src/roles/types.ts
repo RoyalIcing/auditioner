@@ -11,6 +11,8 @@ export interface AllDescriptor {
   readonly all: true;
 }
 
+export interface AllRoleDescription extends RoleDescriptor, AllDescriptor {}
+
 export interface SingleDescriptor<Q extends Queries = typeof queries> {
   get(source: BoundFunctions<Q>): HTMLElement;
 }

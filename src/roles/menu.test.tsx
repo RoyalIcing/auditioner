@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { menu, menuitem } from './menu';
+import { Menu } from './menu';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -29,15 +29,15 @@ describe('Menu', () => {
       });
 
       it('renders menu', () => {
-        expect(screenTest(menu())).toBeInTheDocument();
+        expect(screenTest(Menu())).toBeInTheDocument();
       });
 
       it('renders 3 menuitems', () => {
-        expect(screenTest(menuitem().all)).toHaveLength(3);
+        expect(screenTest(Menu.item().all)).toHaveLength(3);
       });
 
       it('renders 3 menuitems: Cut, Copy, Paste', () => {
-        const [first, second, third] = screenTest(menuitem().all);
+        const [first, second, third] = screenTest(Menu.item().all);
         expect(first).toHaveTextContent('Cut');
         expect(second).toHaveTextContent('Copy');
         expect(third).toHaveTextContent('Paste');
@@ -45,7 +45,7 @@ describe('Menu', () => {
 
       describe('when clicking on Cut item', () => {
         beforeEach(() => {
-          user.click(screenTest(menuitem('Cut')));
+          user.click(screenTest(Menu.item('Cut')));
         });
 
         it('calls select with cut', () => {
@@ -55,7 +55,7 @@ describe('Menu', () => {
 
       describe('when clicking on Copy item', () => {
         beforeEach(() => {
-          user.click(screenTest(menuitem('Copy')));
+          user.click(screenTest(Menu.item('Copy')));
         });
 
         it('calls select with copy', () => {
@@ -65,7 +65,7 @@ describe('Menu', () => {
 
       describe('when clicking on Paste item', () => {
         beforeEach(() => {
-          user.click(screenTest(menuitem('Paste')));
+          user.click(screenTest(Menu.item('Paste')));
         });
 
         it('calls select with paste', () => {

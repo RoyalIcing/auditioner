@@ -1,4 +1,28 @@
 import { prettyDOM } from '@testing-library/dom';
+import type { AllDescriptor, RoleDescriptor } from './types';
+
+export function role(role: string, name?: string | RegExp) {
+  return Object.freeze({
+    role,
+    name,
+    get all(): RoleDescriptor & AllDescriptor {
+      return Object.create(this, { all: { value: true } });
+    },
+  });
+}
+
+export function roleSelectable(role: string, name?: string | RegExp) {
+  return Object.freeze({
+    role,
+    name,
+    get selected(): RoleDescriptor {
+      return Object.create(this, { isSelected: { value: true } });
+    },
+    get all(): RoleDescriptor & AllDescriptor {
+      return Object.create(this, { all: { value: true } });
+    },
+  });
+}
 
 export function assertDefined<T>(
   input: T | undefined | null

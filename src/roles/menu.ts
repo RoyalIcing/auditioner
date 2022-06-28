@@ -1,8 +1,22 @@
 // https://www.w3.org/TR/wai-aria-practices-1.1/examples/menubar/menubar-1/menubar-1.html
 // https://www.w3.org/TR/wai-aria-practices-1.1/examples/menubar/menubar-2/menubar-2.html
 // https://www.w3.org/TR/wai-aria-practices-1.1/examples/menu-button/menu-button-links.html
-import { AllDescriptor, RoleDescriptor } from './types';
-// import { followControlled, assertDefined, assertHasRole } from './shared';
+import { role } from './shared';
+import type { AllDescriptor, RoleDescriptor } from './types';
+
+export const Menu = Object.assign(
+  function menu(name?: string | RegExp) {
+    return role('menu', name);
+  },
+  {
+    get all() {
+      return role('menu').all;
+    },
+    item(name?: string | RegExp) {
+      return role('menuitem', name);
+    },
+  }
+);
 
 export function menu(name?: string | RegExp) {
   return Object.freeze({

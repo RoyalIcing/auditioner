@@ -1,49 +1,20 @@
 // https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html
 
-import { AllDescriptor, RoleDescriptor } from './types';
-
-function tablist(name?: string | RegExp) {
-  return Object.freeze({
-    role: 'tablist',
-    name,
-    get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
-    },
-  });
-}
-
-function tabpanel(name?: string | RegExp) {
-  return Object.freeze({
-    role: 'tabpanel',
-    name,
-    get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
-    },
-  });
-}
+import { role, roleSelectable } from './shared';
 
 function tab(name?: string | RegExp) {
-  return Object.freeze({
-    role: 'tab',
-    name,
-    get selected(): RoleDescriptor {
-      return Object.create(this, { isSelected: { value: true } });
-    },
-    get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
-    },
-  });
+  return roleSelectable('tab', name);
 }
 
 export const Tab = Object.assign(tab, {
   get all() {
     return tab().all;
   },
-  get list() {
-    return tablist;
+  list(name?: string | RegExp) {
+    return role('tablist', name);
   },
-  get panel() {
-    return tabpanel;
+  panel(name?: string | RegExp) {
+    return role('tabpanel', name);
   },
 });
 
