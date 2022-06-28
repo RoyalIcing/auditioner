@@ -40,41 +40,41 @@ import { screenTest, tablist, tabs, tab, tabpanel } from 'auditioner';
 describe('your tabs component', () => {
   beforeEach(() => render(<Tabs />));
 
-  it('renders tablist', () => {
-    expect(screenTest(tablist())).toBeVisible();
-  });
-
   it('renders 3 tabs', () => {
-    expect(screenTest(tab().all)).toHaveLength(3);
+    expect(screenTest(Tab.all)).toHaveLength(3);
   });
 
   it('has first tab', () => {
-    expect(screenTest(tab('First'))).toBeVisible();
+    expect(screenTest(Tab('First'))).toBeVisible();
   });
 
   it('selects first tab', () => {
-    expect(screenTest(tab('First').selected)).toBeVisible();
+    expect(screenTest(Tab('First').selected)).toBeVisible();
   });
 
   it('renders first tabpanel', () => {
-    expect(screenTest(tabpanel())).toHaveTextContent('First panel');
+    expect(screenTest(Tab.panel())).toHaveTextContent('First panel');
   });
 
   it('labels first tabpanel', () => {
-    expect(screenTest(tabpanel('First'))).toHaveTextContent('First panel');
+    expect(screenTest(Tab.panel('First'))).toHaveTextContent('First panel');
+  });
+
+  it('renders tablist', () => {
+    expect(screenTest(Tab.list())).toBeVisible();
   });
 
   describe('when clicking on second tab', () => {
     beforeEach(() => {
-      user.click(screenTest(tab('Second')));
+      user.click(screenTest(Tab('Second')));
     });
 
     it('selects second tab', () => {
-      expect(screenTest(tab('Second').selected)).toBeVisible();
+      expect(screenTest(Tab('Second').selected)).toBeVisible();
     });
 
     it('renders second tabpanel', () => {
-      expect(screenTest(tabpanel())).toHaveTextContent('Second panel');
+      expect(screenTest(Tab.panel())).toHaveTextContent('Second panel');
     });
   });
 });

@@ -16,10 +16,6 @@ describe('Tabs', () => {
       render(el);
     });
 
-    it('renders tablist', () => {
-      expect(screenTest(Tab.list())).toBeVisible();
-    });
-
     it('renders 3 tabs', () => {
       expect(screenTest(Tab.all)).toHaveLength(3);
     });
@@ -38,6 +34,10 @@ describe('Tabs', () => {
 
     it('labels first tabpanel', () => {
       expect(screenTest(Tab.panel('First'))).toHaveTextContent('First panel');
+    });
+
+    it('renders tablist', () => {
+      expect(screenTest(Tab.list())).toBeVisible();
     });
 
     describe('when clicking on second tab', () => {
