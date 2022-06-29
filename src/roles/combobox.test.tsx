@@ -39,6 +39,20 @@ describe('Combobox', () => {
           expect(screenTest(Combobox.listbox.option().all)).toHaveLength(5);
         });
       });
+
+      // it('renders tree', () => {
+      //   expect(
+      //     screenTest(
+      //       Combobox.listbox().options([
+      //         Item(),
+      //         Item(),
+      //         Item(),
+      //         Item(),
+      //         Item(),
+      //       ])
+      //     )
+      //   ).toHaveLength(1);
+      // });
     });
   });
 });
