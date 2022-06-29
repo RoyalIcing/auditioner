@@ -5,11 +5,12 @@ import '@testing-library/jest-dom';
 import { screenTest } from '../screen';
 import { ComboboxHeadlessUI } from './combobox-headlessui';
 import { Combobox } from './combobox';
+import { ComboboxSpectrum } from './combobox-spectrum';
 
 describe('Combobox', () => {
   describe.each([
-    // ['<ListboxSpectrum>', <ComboboxSpectrum />],
-    ['<ListboxHeadlessUI>', <ComboboxHeadlessUI />],
+    // ['<ComboboxSpectrum>', <ComboboxSpectrum />],
+    ['<ComboboxHeadlessUI>', <ComboboxHeadlessUI />],
   ])('%s', (_displayName, el) => {
     beforeEach(() => {
       render(el);
