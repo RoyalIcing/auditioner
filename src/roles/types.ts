@@ -5,6 +5,7 @@ export interface RoleDescriptor {
   readonly name?: string | RegExp;
   readonly isSelected?: boolean;
   // readonly all?: true;
+  readonly event?: 'click';
 }
 
 export interface AllDescriptor {

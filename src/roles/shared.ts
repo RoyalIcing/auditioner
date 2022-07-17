@@ -1,12 +1,28 @@
 import { prettyDOM } from '@testing-library/dom';
 import type { AllDescriptor, RoleDescriptor } from './types';
 
-export function role(role: string, name?: string | RegExp) {
+export type RoleObject<SupportedEvent extends { click?: true }> = {
+  role: string;
+  name?: string | RegExp;
+  all: RoleDescriptor & AllDescriptor;
+} & (SupportedEvent['click'] extends true
+  ? {
+      click: RoleDescriptor;
+    }
+  : {});
+
+export function role<SupportedEvent extends { click?: true }>(
+  role: string,
+  name?: string | RegExp
+): RoleObject<SupportedEvent> {
   return Object.freeze({
     role,
     name,
     get all(): RoleDescriptor & AllDescriptor {
       return Object.create(this, { all: { value: true } });
+    },
+    get click(): RoleDescriptor {
+      return Object.create(this, { event: { value: 'click' } });
     },
   });
 }
