@@ -25,6 +25,7 @@ export function ComboboxHeadlessUI({}: // dispatch,
 
   return (
     <Combobox value={selectedPerson} onChange={setSelectedPerson}>
+      <Combobox.Label>Person</Combobox.Label>
       <Combobox.Input onChange={(event) => setQuery(event.target.value)} />
       <Combobox.Options>
         {filteredPeople.map((person) => (

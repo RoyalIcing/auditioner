@@ -1,10 +1,16 @@
 import * as React from 'react';
-import { Provider, defaultTheme, ComboBox, Item } from '@adobe/react-spectrum';
+import {
+  Provider,
+  defaultTheme,
+  ComboBox,
+  Picker,
+  Item,
+} from '@adobe/react-spectrum';
 
 export function ComboboxSpectrum({}: {}) {
   return (
     <Provider theme={defaultTheme}>
-      <ComboBox label="Person">
+      <ComboBox label="Person" selectedKey="1">
         <Item key="1">Durward Reynolds</Item>
         <Item key="2">Kenton Towne</Item>
         <Item key="3">Therese Wunsch</Item>
