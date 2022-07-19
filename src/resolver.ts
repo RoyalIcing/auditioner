@@ -27,10 +27,12 @@ export function resolverFor(
   >
 ): DescriptorResolver<RoleDescriptor | (RoleDescriptor & AllDescriptor)> {
   return Object.assign(
-    (descriptor: RoleDescriptor | (RoleDescriptor & AllDescriptor)) => {
+    <D extends RoleDescriptor>(
+      descriptor: RoleDescriptor | (RoleDescriptor & AllDescriptor)
+    ): D extends AllDescriptor ? ReadonlyArray<HTMLElement> : HTMLElement => {
       if ('all' in descriptor && descriptor.all === true) {
         const { name } = descriptor;
-        return source.queryAllByRole(descriptor.role, { name });
+        return source.queryAllByRole(descriptor.role, { name }) as any;
       } else {
         const { name, isSelected: selected } = descriptor;
         return source.getByRole(descriptor.role, { name, selected });
