@@ -16,7 +16,7 @@ export const Calendar = Object.assign(
       return role('row', name);
     },
     dayGridCell(name?: string | RegExp) {
-      return role('gridcell', name);
+      return roleSelectable('gridcell', name);
     },
     dayButton(name?: string | RegExp) {
       return role<{ click: true }>('button', name);

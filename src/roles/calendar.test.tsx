@@ -54,6 +54,13 @@ describe('Calendar', () => {
         expect(screenTest(Calendar.dayGridCell().all)).toHaveLength(5 * 7);
       });
 
+      it('has selected day gridcell', () => {
+        const selectedDay = screenTest(Calendar.dayGridCell().selected);
+        expect(
+          screenTest(Calendar.dayButton(/February 3, 2020/), selectedDay)
+        ).toBeVisible();
+      });
+
       describe.skip('when particular day is clicked', () => {
         beforeEach(async () => {
           console.log(prettyDOM(screenTest(Calendar.grid())));
