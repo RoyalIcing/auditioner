@@ -36,6 +36,8 @@
     "@adobe/react-spectrum": "^3.33.1",
     "@headlessui/react": "^1.7.18",
     "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@swc/core": "^1.2.206",
     "@swc/jest": "^0.2.21",
     "@testing-library/dom": "^9",

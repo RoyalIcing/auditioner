@@ -5,6 +5,7 @@
     "target": "ES2015",
     "lib": ["dom", "esnext"],
     "emitDeclarationOnly": true,
+    // "allowImportingTsExtensions": true,
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
