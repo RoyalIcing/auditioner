@@ -4,10 +4,12 @@
     "module": "esnext",
     "target": "ES2015",
     "lib": ["dom", "esnext"],
+    "emitDeclarationOnly": true,
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
     "rootDir": "./src",
+    "outDir": "./dist",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -21,6 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "baseUrl": "./",
+    "skipLibCheck": true,
     "paths": {
       "*": ["src/*", "node_modules/*"]
     },

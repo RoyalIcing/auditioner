@@ -3,14 +3,14 @@
   "version": "0.2.0",
   "license": "MIT",
   "source": "src/index.ts",
-  "main": "dist/auditioner.js",
-  "module": "dist/auditioner.module.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "browser": "./dist/auditioner.module.js",
-      "import": "./dist/auditioner.module.js",
-      "require": "./dist/auditioner.js"
+      "browser": "./dist/index.mjs",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
     }
   },
   "files": [
@@ -22,8 +22,7 @@
   },
   "scripts": {
     "prepack": "jest && npm run build",
-    "dev": "parcel watch",
-    "build": "parcel build",
+    "build": "rollup -c && tsc",
     "test": "jest --watch"
   },
   "prettier": {
@@ -36,8 +35,7 @@
   "devDependencies": {
     "@adobe/react-spectrum": "^3.33.1",
     "@headlessui/react": "^1.7.18",
-    "@parcel/packager-ts": "^2.6.2",
-    "@parcel/transformer-typescript-types": "^2.6.2",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@swc/core": "^1.2.206",
     "@swc/jest": "^0.2.21",
     "@testing-library/dom": "^9",
@@ -45,6 +43,7 @@
     "@testing-library/react": "^14",
     "@testing-library/user-event": "^14",
     "@types/jest": "^29",
+    "@types/node": "^20.11.10",
     "@types/react": "^18.2",
     "@types/react-dom": "^18.2",
     "identity-obj-proxy": "^3.0.0",
@@ -52,13 +51,15 @@
     "jest-environment-jsdom": "^29",
     "jest-transform-css": "^6",
     "jest-zest": "^0.4.3",
-    "parcel": "^2.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup": "^4.9.6",
+    "rollup-plugin-delete": "^2.0.0",
     "tslib": "^2",
     "typescript": "^5"
   },
   "peerDependencies": {
-    "@testing-library/dom": "*"
+    "@testing-library/dom": "*",
+    "@testing-library/user-event": "*"
   }
 }
