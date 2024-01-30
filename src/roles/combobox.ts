@@ -15,10 +15,10 @@ export const Combobox = Object.assign(combobox, {
   get all() {
     return role('combobox').all;
   },
-  get popupListbox() {
+  get PopupListbox() {
     return Listbox;
   },
-  get button() {
+  get Button() {
     return Button;
   },
   // TODO: or Scripts()?

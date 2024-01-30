@@ -8,7 +8,7 @@ import { Combobox } from './combobox';
 import { ComboboxSpectrum } from './combobox-spectrum';
 
 describe('Combobox', () => {
-  describe.each([['<ComboboxHeadlessUI>', <ComboboxHeadlessUI />]])(
+  describe.each([['@headlessui/react', <ComboboxHeadlessUI />]])(
     '%s',
     (_displayName, el) => {
       beforeEach(() => {
@@ -36,14 +36,14 @@ describe('Combobox', () => {
         test('tabThenDownArrow', async () => {
           await Combobox.Interactions(user).tabThenDownArrow();
           waitFor(() => {
-            expect(screenTest(Combobox.popupListbox())).toBeVisible();
+            expect(screenTest(Combobox.PopupListbox())).toBeVisible();
           });
         });
 
         test('tabThenDownArrow + escape', async () => {
           await Combobox.Interactions(user).tabThenDownArrow();
           await Combobox.Interactions(user).escape();
-          expect(screenTest(Combobox.popupListbox.all)).toHaveLength(0);
+          expect(screenTest(Combobox.PopupListbox.all)).toHaveLength(0);
         });
       });
 
@@ -51,16 +51,16 @@ describe('Combobox', () => {
         beforeEach(() => user.keyboard('{Tab}{Down}'));
 
         it('renders listbox', () => {
-          expect(screenTest(Combobox.popupListbox())).toBeVisible();
+          expect(screenTest(Combobox.PopupListbox())).toBeVisible();
         });
 
         it('renders 1 listbox', () => {
-          expect(screenTest(Combobox.popupListbox.all)).toHaveLength(1);
+          expect(screenTest(Combobox.PopupListbox.all)).toHaveLength(1);
         });
 
         it('has 5 options', async () => {
           await waitFor(() => {
-            expect(screenTest(Combobox.popupListbox.option().all)).toHaveLength(
+            expect(screenTest(Combobox.PopupListbox.Option().all)).toHaveLength(
               5
             );
           });
@@ -85,7 +85,7 @@ describe('Combobox', () => {
 });
 
 describe('Combobox.Button', () => {
-  describe.each([['<ComboboxSpectrum>', <ComboboxSpectrum />]])(
+  describe.each([['@adobe/react-spectrum', <ComboboxSpectrum />]])(
     '%s',
     (_displayName, el) => {
       beforeEach(() => {
@@ -93,17 +93,17 @@ describe('Combobox.Button', () => {
       });
 
       it('renders button', () => {
-        expect(screenTest(Combobox.button())).toBeVisible();
+        expect(screenTest(Combobox.Button())).toBeVisible();
       });
 
       it('renders named button', () => {
         expect(
-          screenTest(Combobox.button('Person Durward Reynolds'))
+          screenTest(Combobox.Button('Person Durward Reynolds'))
         ).toBeVisible();
       });
 
       it('has selected person as name', () => {
-        expect(screenTest(Combobox.button())).toHaveAccessibleName(
+        expect(screenTest(Combobox.Button())).toHaveAccessibleName(
           expect.stringContaining('Durward Reynolds')
         );
       });
@@ -111,13 +111,13 @@ describe('Combobox.Button', () => {
       describe('.Interactions', () => {
         test('tab', async () => {
           await Combobox.Interactions(user).tab();
-          expect(screenTest(Combobox.button())).toHaveFocus();
+          expect(screenTest(Combobox.Button())).toHaveFocus();
         });
 
         test.skip('tabThenDownArrow', async () => {
           await Combobox.Interactions(user).tabThenDownArrow();
           await waitFor(() => {
-            expect(screenTest(Combobox.popupListbox())).toBeVisible();
+            expect(screenTest(Combobox.PopupListbox())).toBeVisible();
           });
         });
 
@@ -125,7 +125,7 @@ describe('Combobox.Button', () => {
           await Combobox.Interactions(user).tabThenDownArrow();
           await Combobox.Interactions(user).escape();
           waitFor(() => {
-            expect(screenTest(Combobox.popupListbox.all)).toHaveLength(0);
+            expect(screenTest(Combobox.PopupListbox.all)).toHaveLength(0);
           });
         });
       });
@@ -134,16 +134,16 @@ describe('Combobox.Button', () => {
         beforeEach(() => user.keyboard('{Tab}{Down}'));
 
         it('renders listbox', () => {
-          expect(screenTest(Combobox.popupListbox())).toBeVisible();
+          expect(screenTest(Combobox.PopupListbox())).toBeVisible();
         });
 
         it('renders 1 listbox', () => {
-          expect(screenTest(Combobox.popupListbox.all)).toHaveLength(1);
+          expect(screenTest(Combobox.PopupListbox.all)).toHaveLength(1);
         });
 
         it('has 5 options', async () => {
           await waitFor(() => {
-            expect(screenTest(Combobox.popupListbox.option().all)).toHaveLength(
+            expect(screenTest(Combobox.PopupListbox.Option().all)).toHaveLength(
               5
             );
           });

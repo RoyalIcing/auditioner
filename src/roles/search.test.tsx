@@ -29,7 +29,7 @@ describe('Checkbox', () => {
     });
 
     it('has search box', () => {
-      expect(screenTest(Search.box())).toBeVisible();
+      expect(screenTest(Search.Box())).toBeVisible();
     });
 
     describe('when user submit search', () => {

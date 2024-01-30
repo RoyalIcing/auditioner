@@ -10,10 +10,10 @@ export const Tab = Object.assign(tab, {
   get all() {
     return tab().all;
   },
-  list(name?: string | RegExp) {
+  List(name?: string | RegExp) {
     return role('tablist', name);
   },
-  panel(name?: string | RegExp) {
+  Panel(name?: string | RegExp) {
     return role('tabpanel', name);
   },
 });

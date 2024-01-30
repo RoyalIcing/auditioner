@@ -29,15 +29,15 @@ describe('Tabs', () => {
     });
 
     it('renders first tabpanel', () => {
-      expect(screenTest(Tab.panel())).toHaveTextContent('First panel');
+      expect(screenTest(Tab.Panel())).toHaveTextContent('First panel');
     });
 
     it('labels first tabpanel', () => {
-      expect(screenTest(Tab.panel('First'))).toHaveTextContent('First panel');
+      expect(screenTest(Tab.Panel('First'))).toHaveTextContent('First panel');
     });
 
     it('renders tablist', () => {
-      expect(screenTest(Tab.list())).toBeVisible();
+      expect(screenTest(Tab.List())).toBeVisible();
     });
 
     describe('when clicking on second tab', () => {
@@ -50,7 +50,7 @@ describe('Tabs', () => {
       });
 
       it('renders second tabpanel', () => {
-        expect(screenTest(Tab.panel())).toHaveTextContent('Second panel');
+        expect(screenTest(Tab.Panel())).toHaveTextContent('Second panel');
       });
     });
   });

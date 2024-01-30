@@ -34,11 +34,11 @@ describe('Menu', () => {
       });
 
       it('renders 3 menu items', () => {
-        expect(screenTest(Menu.item().all)).toHaveLength(3);
+        expect(screenTest(Menu.Item().all)).toHaveLength(3);
       });
 
       it('renders 3 menu items: Cut, Copy, Paste', () => {
-        const [first, second, third] = screenTest(Menu.item().all);
+        const [first, second, third] = screenTest(Menu.Item().all);
         expect(first).toHaveAccessibleName('Cut');
         expect(second).toHaveAccessibleName('Copy');
         expect(third).toHaveAccessibleName('Paste');
@@ -46,7 +46,7 @@ describe('Menu', () => {
 
       describe('when clicking on Cut item', () => {
         beforeEach(async () => {
-          await user.click(screenTest(Menu.item('Cut')));
+          await user.click(screenTest(Menu.Item('Cut')));
         });
 
         it('calls select with cut', () => {
@@ -56,7 +56,7 @@ describe('Menu', () => {
 
       describe('when clicking on Copy item', () => {
         beforeEach(async () => {
-          await user.click(screenTest(Menu.item('Copy')));
+          await user.click(screenTest(Menu.Item('Copy')));
         });
 
         it('calls select with copy', () => {
@@ -66,7 +66,7 @@ describe('Menu', () => {
 
       describe('when clicking on Paste item', () => {
         beforeEach(async () => {
-          await user.click(screenTest(Menu.item('Paste')));
+          await user.click(screenTest(Menu.Item('Paste')));
         });
 
         it('calls select with paste', () => {

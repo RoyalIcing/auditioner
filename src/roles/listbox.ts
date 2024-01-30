@@ -11,7 +11,7 @@ export const Listbox = Object.assign(listbox, {
   get all() {
     return role('listbox').all;
   },
-  option(name?: string | RegExp) {
+  Option(name?: string | RegExp) {
     return roleSelectable('option', name);
   },
 });

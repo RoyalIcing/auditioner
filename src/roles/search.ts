@@ -8,7 +8,7 @@ export const Search = Object.assign(
     get all() {
       return role('search').all;
     },
-    box(name?: string | RegExp) {
+    Box(name?: string | RegExp) {
       return role('searchbox', name);
     },
   }

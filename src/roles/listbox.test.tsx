@@ -18,14 +18,14 @@ describe('Listbox', () => {
     });
 
     it('renders button', () => {
-      expect(screenTest(Button(/^Choose/))).toBeVisible();
+      expect(screenTest(Button(/\bChoose\b/))).toBeVisible();
     });
 
     describe('when opening', () => {
       // screenTest.click(Button(/^Choose/))
       // screenTest.user.clicks(Button(/^Choose/))
       // screenTest._clicks_(Button(/^Choose/))
-      beforeEach(() => user.click(screenTest(Button(/^Choose/))));
+      beforeEach(() => user.click(screenTest(Button(/\bChoose\b/))));
 
       it('renders labelled listbox', () => {
         expect(screenTest(Listbox('Choose'))).toBeVisible();
@@ -38,7 +38,7 @@ describe('Listbox', () => {
       it.skip('has 3 options', async () => {
         // const el = screenTest(Listbox());
         await waitFor(() => {
-          expect(screenTest(Listbox.option().all)).toHaveLength(3);
+          expect(screenTest(Listbox.Option().all)).toHaveLength(3);
         });
       });
     });

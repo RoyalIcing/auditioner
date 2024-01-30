@@ -11,7 +11,7 @@ export const Menu = Object.assign(
     get all() {
       return role('menu').all;
     },
-    item(name?: string | RegExp) {
+    Item(name?: string | RegExp) {
       return role('menuitem', name);
     },
   }
