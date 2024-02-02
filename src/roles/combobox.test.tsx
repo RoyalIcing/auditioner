@@ -19,6 +19,10 @@ describe('Combobox', () => {
         expect(screenTest(Combobox())).toBeVisible();
       });
 
+      it('hides listbox', () => {
+        expect(screenTest(Combobox.PopupListbox().optional)).toBeNull();
+      });
+
       it('renders named combobox', () => {
         expect(screenTest(Combobox('Person'))).toBeVisible();
       });

@@ -1,9 +1,13 @@
 import { prettyDOM } from '@testing-library/dom';
-import type { AllDescriptor, RoleDescriptor } from './types';
+import { optional, type AllDescriptor, type RoleDescriptor } from './types';
 
-export type RoleObject<SupportedEvent extends { click?: true }> = {
-  role: string;
+export type RoleObject<
+  Role extends string,
+  SupportedEvent extends { click?: true }
+> = {
+  role: Role;
   name?: string | RegExp;
+  optional: RoleObject<Role, SupportedEvent>;
   all: RoleDescriptor & AllDescriptor;
 } & (SupportedEvent['click'] extends true
   ? {
@@ -11,15 +15,18 @@ export type RoleObject<SupportedEvent extends { click?: true }> = {
     }
   : {});
 
-export function role<SupportedEvent extends { click?: true }>(
-  role: string,
-  name?: string | RegExp
-): RoleObject<SupportedEvent> {
+export function role<
+  Role extends string,
+  SupportedEvent extends { click?: true }
+>(role: Role, name?: string | RegExp): RoleObject<Role, SupportedEvent> {
   return Object.freeze({
     role,
     name,
     get all(): RoleDescriptor & AllDescriptor {
       return Object.create(this, { all: { value: true } });
+    },
+    get optional() {
+      return Object.create(this, { [optional]: { value: true } });
     },
     get click(): RoleDescriptor {
       return Object.create(this, { event: { value: 'click' } });
