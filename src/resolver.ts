@@ -1,6 +1,11 @@
 import { screen, waitFor } from '@testing-library/dom';
 import user from '@testing-library/user-event';
-import { AllDescriptor, RoleDescriptor, optional } from './roles/types';
+import {
+  type AllDescriptor,
+  type RoleDescriptor,
+  allKey,
+  optionalKey,
+} from './roles/types';
 
 export type DescriptorResult<T> = T extends RoleDescriptor & AllDescriptor
   ? Array<HTMLElement>
@@ -30,10 +35,10 @@ export function resolverFor(
     <D extends RoleDescriptor>(
       descriptor: RoleDescriptor | (RoleDescriptor & AllDescriptor)
     ): D extends AllDescriptor ? ReadonlyArray<HTMLElement> : HTMLElement => {
-      if ('all' in descriptor && descriptor.all === true) {
+      if (allKey in descriptor) {
         const { name } = descriptor;
         return source.queryAllByRole(descriptor.role, { name }) as any;
-      } else if (optional in descriptor) {
+      } else if (optionalKey in descriptor) {
         const { name, isSelected: selected } = descriptor;
         return source.queryByRole(descriptor.role, { name, selected }) as any;
       } else {

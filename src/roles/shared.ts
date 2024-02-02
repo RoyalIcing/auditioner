@@ -1,5 +1,10 @@
 import { prettyDOM } from '@testing-library/dom';
-import { optional, type AllDescriptor, type RoleDescriptor } from './types';
+import {
+  type AllDescriptor,
+  type RoleDescriptor,
+  allKey,
+  optionalKey,
+} from './types';
 
 export type RoleObject<
   Role extends string,
@@ -23,10 +28,10 @@ export function role<
     role,
     name,
     get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
+      return Object.create(this, { [allKey]: { value: true } });
     },
     get optional() {
-      return Object.create(this, { [optional]: { value: true } });
+      return Object.create(this, { [optionalKey]: { value: true } });
     },
     get click(): RoleDescriptor {
       return Object.create(this, { event: { value: 'click' } });
@@ -42,7 +47,7 @@ export function roleSelectable(role: string, name?: string | RegExp) {
       return Object.create(this, { isSelected: { value: true } });
     },
     get all(): RoleDescriptor & AllDescriptor {
-      return Object.create(this, { all: { value: true } });
+      return Object.create(this, { [allKey]: { value: true } });
     },
   });
 }
